@@ -1,0 +1,3 @@
+/node_modules
+/backendAPI/vendor
+/backendAPI/composer.lock

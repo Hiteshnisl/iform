@@ -1,0 +1,238 @@
+<ngx-ui-loader></ngx-ui-loader>
+
+<div class="container">
+    <div class="row my-3 mx-1">
+        <h2 class="h2 ms-2 card-heading text-secondary">Order Form</h2>
+        <hr>
+        <form (ngSubmit)="form_submit()" [formGroup]="clientForm">
+            <div class="row">
+                <div class="col-md-6 name">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name<span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="name">
+
+                        <div *ngIf="clientForm.get('name')?.invalid && (clientForm.get('name')?.dirty && clientForm.get('name')?.touched)" class="text-danger">
+                            <div *ngIf="clientForm.get('name')?.errors?.['required']">
+                                Name field is required.
+                            </div>
+                            <div *ngIf="clientForm.get('name')?.errors?.['minlength']">
+                                Name must be more than 3 characters.
+                            </div>
+                            <div *ngIf="clientForm.get('name')?.errors?.['maxlength']">
+                                Name must be between 3 to 50 characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 email">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email <span
+                                class="text-danger">*</span></label>
+                        <input type="email" class="form-control" formControlName="email">
+                        <div *ngIf="clientForm.get('email')?.invalid && (clientForm.get('email')?.dirty && clientForm.get('email')?.touched)" class="text-danger">
+                            <div *ngIf="clientForm.get('email')?.errors?.['required']">
+                                Email field is required.
+                            </div>
+                            <div *ngIf="clientForm.get('email')?.errors?.['minlength']">
+                                Email address must be more than 8 characters.
+                            </div>
+                            <div *ngIf="clientForm.get('email')?.errors?.['maxlength']">
+                                Email address must be between 3 to 50 characters.
+                            </div>
+                            <div *ngIf="clientForm.get('email')?.errors?.['email']">
+                                Email address is not valid.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 Address">
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address<span
+                                class="text-danger">*</span></label>
+                        <textarea type="text" class="form-control" formControlName="address"></textarea>
+                        <div *ngIf="clientForm.get('address')?.invalid && (clientForm.get('address')?.dirty && clientForm.get('address')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('address')?.errors?.['required']">
+                                Address field is required.
+                            </div>
+                            <div *ngIf="clientForm.get('address')?.errors?.['minlength']">
+                                Minumum 10 character must be exist
+                            </div>
+                            <div *ngIf="clientForm.get('address')?.errors?.['maxlength']">
+                                Maximum 100 characters allowed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 Phone">
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone<span
+                                class="text-danger">*</span></label>
+                        <input type="tel" name="phone" class="form-control" formControlName="phone">
+                        <div *ngIf="clientForm.get('phone')?.invalid && (clientForm.get('phone')?.dirty && clientForm.get('phone')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('phone')?.errors?.['required']">
+                                Phone field is required.
+                            </div>
+                            <div *ngIf="clientForm.get('phone')?.errors?.['pattern']">
+                                The phone number must between 10 to 15 digits.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 Date">
+                    <div class="mb-3">
+                        <label for="delivery_date" class="form-label">Expected Delivery date </label>
+                        <input type="text" class="form-control" formControlName="delivery_date" bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', returnFocusToInput: true }"
+                            [minDate]="FutureDate" readonly>
+                        <div *ngIf="clientForm.get('delivery_date')?.invalid && (clientForm.get('delivery_date')?.dirty && clientForm.get('delivery_date')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('delivery_date')?.errors?.['required']">
+                                Date is not valid
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 Time">
+                    <div class="mb-3">
+                        <label for="delivery_time" class="form-label">Expected Delivery time</label>
+                        <timepicker [formControlName]="'delivery_time'"></timepicker>
+                        <div *ngIf="clientForm.get('delivery_time')?.invalid && (clientForm.get('delivery_time')?.dirty && clientForm.get('delivery_time')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('delivery_time')?.errors?.['required']">
+                                This field is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 Switch">
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="gift_wrap"
+                                formControlName="gift_wrap">
+                            <label class="form-check-label" for="gift_wrap">Gift wrap</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 dropdown">
+                    <div class="mb-3">
+                        <label for="payment_type" class="form-label">Payment type<span
+                                class="text-danger">*</span></label>
+                        <select formControlName="payment_type" class="form-control" name="payment_type">  
+                            <option disabled>Select Payment Type</option>  
+                            <option value="online">Online</option>  
+                            <option value="cash">Cash on delivery</option>  
+                        </select> 
+                        <div *ngIf="clientForm.get('payment_type')?.invalid && (clientForm.get('payment_type')?.dirty && clientForm.get('payment_type')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('payment_type')?.errors?.['required']">
+                                Please select suitable Payment type.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 Image">
+                    <div class="mb-3">
+                        <label for="suggestion_image" class="form-label">Suggestion Image</label>
+                        <input type="file" class="form-control" formControlName="suggestion_image"
+                            accept="image/png, image/jpeg, image/jpg" (change)="validateImage($event)">
+                        <div *ngIf="clientForm.get('suggestion_image')?.invalid && (clientForm.get('suggestion_image')?.dirty && clientForm.get('suggestion_image')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['type']">
+                                Profile picture must be a JPEG, JPG, PNG image.
+                            </div>
+                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['size']">
+                                Profile picture must be less then 2MB
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 Terms">
+                    <div class="mb-3">
+                        <label for="terms_and_conditions" class="form-label"><input type="checkbox" formControlName="terms_and_conditions" name="terms_and_conditions" id="terms_and_conditions" required> Terms and conditions<span
+                            class="text-danger">*</span></label>
+                        <div *ngIf="clientForm.get('terms_and_conditions')?.invalid && (clientForm.get('terms_and_conditions')?.dirty && clientForm.get('terms_and_conditions')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('terms_and_conditions')?.errors?.['required']">
+                                Please Read and Check terms and conditions to move ahead.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="clientForm.invalid">Oder Now</button>
+        </form>
+    </div>
+    <div class="row my-3 mx-1" *ngIf="form_details.length != 0">
+        <div class="col-md-12">
+            <h2 class="h2 ms-2 card-heading text-secondary text-center">Preview</h2>
+            <hr>
+            <div class="container h4" >
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Name:</label>
+                    <div class="col-md-6">
+                        {{ form_details?.name }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Email :</label>
+                    <div class="col-md-6">
+                        {{ form_details?.email }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Address :</label>
+                    <div class="col-md-6">
+                        {{ form_details?.address }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Phone:</label>
+                    <div class="col-md-6">
+                        {{ form_details?.phone }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Expected Delivery date:</label>
+                    <div class="col-md-6">
+                        {{ form_details?.expected_delivery_time }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Expected Delivery time:</label>
+                    <div class="col-md-6">
+                        {{ form_details?.expecteddelivery_date }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Gift wrap:</label>
+                    <div class="col-md-6">
+                        {{ (form_details?.gift_wrap) ? "Yes" : 'No' }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Payment type:</label>
+                    <div class="col-md-6">
+                        {{ form_details?.payment_type }}
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <label for="" class="pe-5 mb-3 col-md-4">Suggestion Image:</label>
+                    <div class="col-md-6">
+                        <img src="{{ form_details?.suggestion_image }}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
