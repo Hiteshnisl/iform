@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row my-3 mx-1">
-        <h2 class="h2 ms-2 card-heading text-secondary">Order Form</h2>
-        <hr>
+        <h2 class="h2 text-primary text-center">Order Form</h2>
+        <hr class="text-primary">
         <form (ngSubmit)="form_submit()" [formGroup]="clientForm">
             <div class="row">
                 <div class="col-md-6 name">
@@ -107,6 +107,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 Image">
+                    <div class="mb-3">
+                        <label for="suggestion_image" class="form-label">Suggestion Image</label>
+                        <input type="file" class="form-control" formControlName="suggestion_image"
+                            accept="image/png, image/jpeg, image/jpg" (change)="validateImage($event)">
+                        <div *ngIf="clientForm.get('suggestion_image')?.invalid && (clientForm.get('suggestion_image')?.dirty && clientForm.get('suggestion_image')?.touched)"
+                            class="text-danger">
+                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['type']">
+                                Profile picture must be a JPEG, JPG, PNG image.
+                            </div>
+                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['size']">
+                                Profile picture must be less then 2MB
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-6 Switch">
                     <div class="mb-3">
                         <div class="form-check form-switch">
@@ -133,22 +149,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 Image">
-                    <div class="mb-3">
-                        <label for="suggestion_image" class="form-label">Suggestion Image</label>
-                        <input type="file" class="form-control" formControlName="suggestion_image"
-                            accept="image/png, image/jpeg, image/jpg" (change)="validateImage($event)">
-                        <div *ngIf="clientForm.get('suggestion_image')?.invalid && (clientForm.get('suggestion_image')?.dirty && clientForm.get('suggestion_image')?.touched)"
-                            class="text-danger">
-                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['type']">
-                                Profile picture must be a JPEG, JPG, PNG image.
-                            </div>
-                            <div *ngIf="clientForm.get('suggestion_image')?.errors?.['size']">
-                                Profile picture must be less then 2MB
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-12 Terms">
                     <div class="mb-3">
                         <label for="terms_and_conditions" class="form-label"><input type="checkbox" formControlName="terms_and_conditions" name="terms_and_conditions" id="terms_and_conditions" required> Terms and conditions<span
@@ -162,77 +162,85 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="clientForm.invalid">Oder Now</button>
+            <button class="btn btn-primary btn-lg" type="submit" [disabled]="clientForm.invalid">Oder Now</button>
         </form>
     </div>
     <div class="row my-3 mx-1" *ngIf="form_details.length != 0">
-        <div class="col-md-12">
-            <h2 class="h2 ms-2 card-heading text-secondary text-center">Preview</h2>
-            <hr>
-            <div class="container h4" >
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Name:</label>
-                    <div class="col-md-6">
-                        {{ form_details?.name }}
-                    </div>
+        <h2 class="h2 text-success text-center">Preview</h2>
+        <hr class="text-success">
+        <div class="row" >
+            <div class="row name">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Name:</label>
                 </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Email :</label>
-                    <div class="col-md-6">
-                        {{ form_details?.email }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Address :</label>
-                    <div class="col-md-6">
-                        {{ form_details?.address }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Phone:</label>
-                    <div class="col-md-6">
-                        {{ form_details?.phone }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Expected Delivery date:</label>
-                    <div class="col-md-6">
-                        {{ form_details?.expected_delivery_time }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Expected Delivery time:</label>
-                    <div class="col-md-6">
-                        {{ form_details?.expecteddelivery_date }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Gift wrap:</label>
-                    <div class="col-md-6">
-                        {{ (form_details?.gift_wrap) ? "Yes" : 'No' }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Payment type:</label>
-                    <div class="col-md-6">
-                        {{ form_details?.payment_type }}
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <label for="" class="pe-5 mb-3 col-md-4">Suggestion Image:</label>
-                    <div class="col-md-6">
-                        <img src="{{ form_details?.suggestion_image }}"/>
-                    </div>
+                <div class="col-md-6">
+                    {{ form_details?.name }}
                 </div>
             </div>
-        </div>
+            <div class="row email">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Email :</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.email }}
+                </div>
+            </div>
+            <div class="row Address">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Address :</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.address }}
+                </div>
+            </div>
+            <div class="row Phone">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Phone:</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.phone }}
+                </div>
+            </div>
+            <div class="row Date">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Expected Delivery date:</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.expected_delivery_time }}
+                </div>
+            </div>
+            <div class="row time">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Expected Delivery time:</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.expecteddelivery_date }}
+                </div>
+            </div>
+            <div class="row Switch">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Gift wrap:</label>
+                </div>
+                <div class="col-md-6">
+                    {{ (form_details?.gift_wrap) ? "Yes" : 'No' }}
+                </div>
+            </div>
+            <div class="row dropdown">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3">Payment type:</label>
+                </div>
+                <div class="col-md-6">
+                    {{ form_details?.payment_type }}
+                </div>
+            </div>
+            <div class="row Image">
+                <div class="col-md-2">
+                    <label for="" class="pe-5 mb-3 col-md-4">Suggestion Image:</label>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-thumbnail" src="{{ form_details?.suggestion_image }}"/>
+                </div>
+            </div>
+        </div>  
     </div>
 </div>

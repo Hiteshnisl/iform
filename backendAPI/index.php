@@ -8,19 +8,21 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 use Cloudinary\Cloudinary;
 
+include_once 'config.php';
+include_once 'IformController.php';
+include_once 'Rules.php';
+
+
 $cloudinary = new Cloudinary(
     [
         'cloud' => [
-            'cloud_name' => 'dfxux4ost',
-            'api_key'    => '853386181114476',
-            'api_secret' => 'NvNN1_yA6_ssvKBoSxlsRXogPw4',
+            'cloud_name' => CLOUD_NAME,
+            'api_key'    => CLOUD_API_KEY,
+            'api_secret' => CLOUD_API_SECRET,
         ],
     ]
 );
 
-include_once 'config.php';
-include_once 'IformController.php';
-include_once 'Rules.php';
 
 
 $iform = new IformController;

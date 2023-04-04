@@ -18,4 +18,9 @@ define("RECORDURL","https://app.iformbuilder.com/exzact/api/v60/profiles/".PROFI
 
 define("BASE_URL","http://localhost/iform/backendAPI/");
 
+define("CLOUD_NAME","dfxux4ost");
+
+define("CLOUD_API_KEY","853386181114476");
+
+define("CLOUD_API_SECRET","NvNN1_yA6_ssvKBoSxlsRXogPw4");
 ?>
